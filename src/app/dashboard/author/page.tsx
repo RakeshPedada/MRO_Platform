@@ -1,12 +1,15 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { FileEdit, Send, BookOpen, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AuthorDashboard() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     redirect('/login');
@@ -31,70 +34,126 @@ export default async function AuthorDashboard() {
     .order('created_at', { ascending: false });
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-slate-900 text-white py-4 px-8 flex justify-between items-center shadow-md">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+      <header className="bg-[#0b1b3d] text-white py-4 px-6 sm:px-8 flex flex-wrap justify-between items-center gap-4 shadow-md border-b border-slate-800">
         <div>
-          <h1 className="text-xl font-bold">MANI Research Organization</h1>
-          <p className="text-xs text-slate-400">Author & Researcher Portal</p>
+          <div className="flex items-center gap-2">
+            <span className="bg-blue-600 text-white font-extrabold text-xs px-2 py-0.5 rounded tracking-wider">
+              MRO
+            </span>
+            <h1 className="text-lg sm:text-xl font-bold tracking-tight">MANI Research Organization</h1>
+          </div>
+          <p className="text-xs text-slate-300">Author &amp; Researcher Portal</p>
         </div>
         <div className="text-right">
-          <p className="text-sm font-medium">{profile?.full_name}</p>
-          <span className="inline-block text-xs bg-blue-600 px-2.5 py-0.5 rounded-full capitalize">
-            {profile?.role}
+          <p className="text-sm font-bold text-white">{profile?.full_name}</p>
+          <span className="inline-block text-[10px] font-mono uppercase bg-blue-500/20 text-blue-300 border border-blue-500/40 px-2 py-0.5 rounded">
+            {profile?.role || 'Author'}
           </span>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto py-10 px-4">
-        <div className="flex justify-between items-center mb-8">
+      <main className="max-w-6xl mx-auto py-10 px-4 sm:px-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
             <h2 className="text-2xl font-bold text-slate-900">Manuscript Submissions</h2>
-            <p className="text-sm text-slate-600">Track and manage your submitted papers</p>
+            <p className="text-xs text-slate-600">Track editorial screening, peer review reports, and submit revisions</p>
           </div>
           <Link
             href="/submit"
-            className="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium rounded-lg shadow transition"
+            className="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold rounded-lg shadow transition flex items-center gap-1.5"
           >
-            + Submit New Manuscript
+            <Send className="w-3.5 h-3.5" />
+            <span>Submit New Manuscript</span>
           </Link>
         </div>
 
         {manuscripts && manuscripts.length > 0 ? (
           <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="bg-slate-100 text-slate-700 text-xs uppercase tracking-wider border-b border-slate-200">
+                <tr className="bg-slate-100 text-slate-700 uppercase tracking-wider text-[11px] border-b border-slate-200 font-bold">
                   <th className="py-3.5 px-6">Title</th>
                   <th className="py-3.5 px-6">Journal</th>
                   <th className="py-3.5 px-6">Status</th>
                   <th className="py-3.5 px-6">Submitted Date</th>
+                  <th className="py-3.5 px-6 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 text-sm">
-                {manuscripts.map((m) => (
-                  <tr key={m.id} className="hover:bg-slate-50 transition">
-                    <td className="py-4 px-6 font-semibold text-slate-900">{m.title}</td>
-                    <td className="py-4 px-6 text-slate-600">
-                      {Array.isArray(m.journals) ? m.journals[0]?.title : (m.journals as { title: string } | null)?.title}
-                    </td>
-                    <td className="py-4 px-6">
-                      <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-800 uppercase">
-                        {m.status.replace('_', ' ')}
-                      </span>
-                    </td>
-                    <td className="py-4 px-6 text-slate-500">
-                      {new Date(m.created_at).toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))}
+              <tbody className="divide-y divide-slate-100">
+                {manuscripts.map((m) => {
+                  const journalTitle = Array.isArray(m.journals)
+                    ? m.journals[0]?.title
+                    : (m.journals as { title: string } | null)?.title;
+
+                  const isRevisionRequested = m.status === 'revision_requested';
+
+                  return (
+                    <tr key={m.id} className="hover:bg-slate-50 transition">
+                      <td className="py-4 px-6 font-bold text-slate-900 max-w-xs leading-snug">
+                        {m.title}
+                        {isRevisionRequested && (
+                          <span className="block text-[11px] text-amber-700 font-semibold mt-1">
+                            &bull; Revision requested by editorial office
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-4 px-6 text-slate-600 font-medium">
+                        {journalTitle || 'Engineering Journal'}
+                      </td>
+                      <td className="py-4 px-6">
+                        <span
+                          className={`inline-block px-2.5 py-1 text-[10px] font-bold rounded-full uppercase ${
+                            m.status === 'published'
+                              ? 'bg-blue-100 text-blue-800'
+                              : m.status === 'accepted'
+                              ? 'bg-emerald-100 text-emerald-800'
+                              : m.status === 'revision_requested'
+                              ? 'bg-amber-100 text-amber-800 animate-pulse'
+                              : m.status === 'rejected'
+                              ? 'bg-rose-100 text-rose-800'
+                              : 'bg-slate-100 text-slate-700'
+                          }`}
+                        >
+                          {m.status.replace('_', ' ')}
+                        </span>
+                      </td>
+                      <td className="py-4 px-6 text-slate-500 font-mono text-[11px]">
+                        {new Date(m.created_at).toLocaleDateString()}
+                      </td>
+                      <td className="py-4 px-6 text-right">
+                        {isRevisionRequested ? (
+                          <Link
+                            href={`/dashboard/author/revise/${m.id}`}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg shadow-sm transition text-xs"
+                          >
+                            <FileEdit className="w-3.5 h-3.5" />
+                            <span>Submit Revision</span>
+                          </Link>
+                        ) : m.status === 'published' ? (
+                          <Link
+                            href="/articles"
+                            className="inline-flex items-center gap-1 text-blue-700 font-semibold hover:underline"
+                          >
+                            <span>View in Catalog</span>
+                            <ArrowRight className="w-3 h-3" />
+                          </Link>
+                        ) : (
+                          <span className="text-slate-400 italic">In Editorial Process</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         ) : (
-          <div className="bg-white border border-slate-200 rounded-xl p-8 text-center">
-            <p className="text-slate-500 mb-2">You have not submitted any manuscripts yet.</p>
+          <div className="bg-white border border-slate-200 rounded-xl p-10 text-center space-y-2">
+            <BookOpen className="w-8 h-8 text-slate-300 mx-auto" />
+            <p className="text-slate-700 font-semibold">You have not submitted any manuscripts yet.</p>
             <p className="text-xs text-slate-400">
-              Click &quot;Submit New Manuscript&quot; to begin the editorial screening and peer-review process.
+              Click &quot;Submit New Manuscript&quot; to begin the peer-review process.
             </p>
           </div>
         )}
