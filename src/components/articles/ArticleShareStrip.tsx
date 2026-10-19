@@ -1,18 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Share2, Check, Copy, Mail } from 'lucide-react';
 
 interface ArticleShareStripProps {
   title: string;
   doi: string;
   url?: string;
+  canonicalUrl?: string;
 }
 
-export default function ArticleShareStrip({ title, doi, url }: ArticleShareStripProps) {
+export default function ArticleShareStrip({ title, doi, url, canonicalUrl }: ArticleShareStripProps) {
   const [copied, setCopied] = useState(false);
+  const staticUrl = canonicalUrl || url || `https://doi.org/${doi}`;
+  const [articleUrl, setArticleUrl] = useState<string>(staticUrl);
 
-  const articleUrl = url || (typeof window !== 'undefined' ? window.location.href : `https://doi.org/${doi}`);
+  useEffect(() => {
+    // Only resolve window.location on client after hydration mount if no explicit canonical URL is passed
+    if (typeof window !== 'undefined' && !canonicalUrl && !url) {
+      setArticleUrl(window.location.href);
+    }
+  }, [canonicalUrl, url]);
+
   const encodedUrl = encodeURIComponent(articleUrl);
   const encodedTitle = encodeURIComponent(title);
 
@@ -90,6 +99,7 @@ export default function ArticleShareStrip({ title, doi, url }: ArticleShareStrip
         {/* Copy Link */}
         <button
           type="button"
+          suppressHydrationWarning
           onClick={handleCopyLink}
           title="Copy article link"
           className="flex flex-col items-center justify-center p-2 rounded-lg border border-slate-200 hover:border-sky-300 hover:bg-sky-50 text-slate-700 hover:text-sky-800 transition text-[10px] font-semibold gap-1 cursor-pointer text-center"

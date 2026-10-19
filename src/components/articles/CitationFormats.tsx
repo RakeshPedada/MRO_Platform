@@ -151,6 +151,8 @@ ER  - `,
         <div className="flex items-center gap-2">
           {currentCitation.filename && (
             <button
+              type="button"
+              suppressHydrationWarning
               onClick={handleDownloadFile}
               title={`Download .${activeTab} file`}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-lg text-xs font-medium transition border border-slate-700"
@@ -160,6 +162,8 @@ ER  - `,
             </button>
           )}
           <button
+            type="button"
+            suppressHydrationWarning
             onClick={handleCopy}
             className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold shadow transition ${
               copied
@@ -190,6 +194,8 @@ ER  - `,
           return (
             <button
               key={tabKey}
+              type="button"
+              suppressHydrationWarning
               onClick={() => {
                 setActiveTab(tabKey);
                 setCopied(false);

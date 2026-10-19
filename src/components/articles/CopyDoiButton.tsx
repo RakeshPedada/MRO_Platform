@@ -45,6 +45,7 @@ export default function CopyDoiButton({
     <div className="relative inline-flex items-center">
       <button
         type="button"
+        suppressHydrationWarning
         onClick={handleCopy}
         title="Click to copy permanent DOI link"
         className={`scholarly-badge-doi group hover:border-sky-300 hover:bg-sky-50/50 hover:text-sky-800 transition-all duration-150 cursor-pointer ${className}`}

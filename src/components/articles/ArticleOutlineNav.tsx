@@ -64,6 +64,7 @@ export default function ArticleOutlineNav() {
           return (
             <button
               key={sec.id}
+              suppressHydrationWarning
               onClick={() => scrollToSection(sec.id)}
               className={`w-full text-left px-2.5 py-1.5 rounded-lg font-medium transition flex items-center justify-between group ${
                 isActive

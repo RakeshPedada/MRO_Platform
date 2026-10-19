@@ -125,6 +125,8 @@ export default function ArticlePdfViewer({
             </a>
 
             <button
+              type="button"
+              suppressHydrationWarning
               onClick={toggleFullscreen}
               className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition"
               title={isFullscreen ? 'Exit Fullscreen (Esc)' : 'Fullscreen Reader'}
@@ -138,6 +140,8 @@ export default function ArticlePdfViewer({
 
             {!isFullscreen && (
               <button
+                type="button"
+                suppressHydrationWarning
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition"
                 title={isOpen ? 'Collapse Reader' : 'Expand Reader'}

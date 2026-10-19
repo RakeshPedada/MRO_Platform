@@ -41,14 +41,99 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const supabase = await createClient();
   const { data: article } = await supabase
     .from('published_articles')
-    .select('manuscripts(title, abstract)')
+    .select(`
+      id,
+      doi,
+      volume,
+      issue,
+      pages,
+      published_at,
+      journals ( title, issn, short_code ),
+      manuscripts (
+        title,
+        abstract,
+        keywords,
+        file_url,
+        profiles:author_id ( full_name )
+      )
+    `)
     .eq('id', id)
     .single();
 
-  const title = (article?.manuscripts as any)?.title || 'Academic Article';
+  if (!article) {
+    return {
+      title: 'Article Not Found | MANI Research Organization',
+    };
+  }
+
+  const manuscript = (article as any).manuscripts;
+  const journal = (article as any).journals;
+  const authorName = manuscript?.profiles?.full_name || 'Academic Researcher';
+  const title = manuscript?.title || 'Academic Article';
+  const abstract = manuscript?.abstract || 'Peer-reviewed open access research article published by MANI Research Organization.';
+  const journalTitle = journal?.title || 'MRO Journal of Advanced Engineering & Technology';
+  const journalIssn = journal?.issn || 'Registered';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://maniresearch.org';
+
+  // Format publication date (YYYY/MM/DD) for Google Scholar
+  const pubDate = new Date(article.published_at || Date.now());
+  const pubDateStr = !isNaN(pubDate.getTime())
+    ? pubDate.toISOString().split('T')[0].replace(/-/g, '/')
+    : '2026/10/19';
+
+  // Parse page boundaries
+  const pages = article.pages || '1-14';
+  const [firstPage, lastPage] = pages.includes('-') ? pages.split('-') : [pages, pages];
+
+  // Resolve signed PDF link or canonical fallback for crawler ingestion
+  let pdfUrl = `${siteUrl}/articles/${id}#pdf-reader`;
+  if (manuscript?.file_url) {
+    const { data: signData } = await supabase.storage
+      .from('manuscripts')
+      .createSignedUrl(manuscript.file_url, 86400);
+    if (signData?.signedUrl) pdfUrl = signData.signedUrl;
+  }
+
+  const keywordsStr = Array.isArray(manuscript?.keywords) ? manuscript.keywords.join('; ') : '';
+
   return {
     title: `${title} | MANI Research Organization`,
-    description: (article?.manuscripts as any)?.abstract?.slice(0, 160) || 'Peer-reviewed open access research article published by MANI Research Organization.',
+    description: abstract.slice(0, 200),
+    openGraph: {
+      title,
+      description: abstract.slice(0, 200),
+      type: 'article',
+      publishedTime: article.published_at,
+      authors: [authorName],
+      url: `${siteUrl}/articles/${id}`,
+      siteName: 'MANI Research Organization',
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description: abstract.slice(0, 200),
+    },
+    other: {
+      'citation_title': title,
+      'citation_author': authorName,
+      'citation_publication_date': pubDateStr,
+      'citation_journal_title': journalTitle,
+      'citation_volume': String(article.volume || 1),
+      'citation_issue': String(article.issue || 1),
+      'citation_firstpage': firstPage.trim(),
+      'citation_lastpage': (lastPage || firstPage).trim(),
+      'citation_doi': article.doi,
+      'citation_pdf_url': pdfUrl,
+      'citation_abstract_html_url': `${siteUrl}/articles/${id}`,
+      'citation_issn': journalIssn,
+      ...(keywordsStr ? { 'citation_keywords': keywordsStr } : {}),
+      'DC.title': title,
+      'DC.creator': authorName,
+      'DC.issued': pubDateStr,
+      'DC.identifier': `doi:${article.doi}`,
+      'DC.publisher': 'MANI Research Organization',
+      'DC.relation.ispartof': journalTitle,
+    },
   };
 }
 
@@ -502,6 +587,7 @@ export default async function ArticleDetailPage({
                 <button
                   type="button"
                   disabled
+                  suppressHydrationWarning
                   className="w-full py-2 px-3 bg-slate-800/50 text-slate-400 text-[11px] font-medium rounded-lg border border-slate-700/60 flex items-center justify-center gap-1.5 cursor-not-allowed"
                 >
                   <Printer className="w-3.5 h-3.5" />
@@ -530,6 +616,7 @@ export default async function ArticleDetailPage({
             <ArticleShareStrip
               title={manuscript?.title || 'Academic Article'}
               doi={article.doi}
+              canonicalUrl={`${process.env.NEXT_PUBLIC_SITE_URL || 'https://maniresearch.org'}/articles/${id}`}
             />
 
             {/* Journal Information Card */}
