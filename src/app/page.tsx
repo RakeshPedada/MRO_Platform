@@ -134,14 +134,23 @@ export default async function HomePage() {
           </span>
         </div>
         <div className="flex items-center gap-4 text-[11px]">
+          <Link href="/about" className="hover:text-white transition-colors">
+            About MRO
+          </Link>
           <Link href="/articles" className="hover:text-white transition-colors">
             Open Access Catalog
           </Link>
-          <Link href="/submit" className="hover:text-white transition-colors">
+          <Link href="/guidelines" className="hover:text-white transition-colors">
             Author Guidelines
           </Link>
-          <span className="text-slate-500">|</span>
-          <span className="text-emerald-400 font-semibold flex items-center gap-1">
+          <Link href="/ethics" className="hover:text-white transition-colors">
+            Publication Ethics
+          </Link>
+          <Link href="/contact" className="hover:text-white transition-colors">
+            Contact
+          </Link>
+          <span className="text-slate-500 hidden sm:inline">|</span>
+          <span className="text-emerald-400 font-semibold hidden sm:flex items-center gap-1">
             <ShieldCheck className="w-3 h-3" />
             COPE Compliant
           </span>
@@ -167,19 +176,25 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-700">
+          <nav className="hidden md:flex items-center gap-5 text-xs font-semibold text-slate-700">
             <a href="#journals" className="hover:text-sky-700 transition-colors">
               Journals
             </a>
             <Link href="/articles" className="hover:text-sky-700 transition-colors">
               Browse Articles
             </Link>
-            <a href="#subjects" className="hover:text-sky-700 transition-colors">
-              17 Subject Areas
-            </a>
-            <a href="#portals" className="hover:text-sky-700 transition-colors">
-              Editorial Board &amp; Portals
-            </a>
+            <Link href="/guidelines" className="hover:text-sky-700 transition-colors">
+              Author Guidelines
+            </Link>
+            <Link href="/editorial-board" className="hover:text-sky-700 transition-colors">
+              Editorial Board
+            </Link>
+            <Link href="/about" className="hover:text-sky-700 transition-colors">
+              About MRO
+            </Link>
+            <Link href="/contact" className="hover:text-sky-700 transition-colors">
+              Contact
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2.5">
@@ -438,7 +453,7 @@ export default async function HomePage() {
               Start Submission &rarr;
             </Link>
             <Link
-              href="/submit"
+              href="/guidelines"
               className="block text-center text-[11px] text-slate-400 hover:text-white underline pt-0.5"
             >
               Author Instructions &amp; Policies
@@ -567,8 +582,11 @@ export default async function HomePage() {
               Kuntinavalasa Village, Mentada Mandal,<br />
               Vizianagaram District, Andhra Pradesh - 535580, India.
             </p>
-            <p className="text-slate-400 pt-1">
+            <p className="text-slate-400 pt-1 text-[10px]">
               Founder: <strong>Nangireddy Manikanta</strong>
+            </p>
+            <p className="text-slate-400 text-[10px]">
+              Official Support: <Link href="/contact" className="text-sky-400 hover:underline">Contact Office</Link>
             </p>
           </div>
 
@@ -582,6 +600,9 @@ export default async function HomePage() {
             <p className="text-slate-400">
               Articles are published Open Access under the <strong>Creative Commons Attribution 4.0 International License (CC BY 4.0)</strong>.
             </p>
+            <Link href="/ethics" className="inline-block text-sky-400 hover:underline text-[10px]">
+              Read Complete Ethics Policies &rarr;
+            </Link>
           </div>
 
           <div className="space-y-2">
@@ -590,23 +611,38 @@ export default async function HomePage() {
             </h4>
             <ul className="space-y-1.5 text-slate-300">
               <li>
+                <Link href="/about" className="hover:text-white">
+                  &bull; About MANI Research Org
+                </Link>
+              </li>
+              <li>
                 <Link href="/articles" className="hover:text-white">
                   &bull; Published Articles Catalog
                 </Link>
               </li>
               <li>
+                <Link href="/guidelines" className="hover:text-white">
+                  &bull; Author Guidelines &amp; Formatting
+                </Link>
+              </li>
+              <li>
+                <Link href="/ethics" className="hover:text-white">
+                  &bull; Publication Ethics &amp; Malpractice
+                </Link>
+              </li>
+              <li>
+                <Link href="/editorial-board" className="hover:text-white">
+                  &bull; Editorial Board Directory
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white">
+                  &bull; Contact &amp; Registered Office
+                </Link>
+              </li>
+              <li>
                 <Link href="/submit" className="hover:text-white">
                   &bull; Manuscript Submission
-                </Link>
-              </li>
-              <li>
-                <Link href="/dashboard/author" className="hover:text-white">
-                  &bull; Author Portal
-                </Link>
-              </li>
-              <li>
-                <Link href="/dashboard/editor" className="hover:text-white">
-                  &bull; Editorial Console
                 </Link>
               </li>
             </ul>
