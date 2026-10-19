@@ -1,5 +1,6 @@
 import InstitutionalHeader from '@/components/layout/InstitutionalHeader';
 import InstitutionalFooter from '@/components/layout/InstitutionalFooter';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import Link from 'next/link';
 import {
   FileText,
@@ -26,7 +27,10 @@ export default function AuthorGuidelinesPage() {
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       <InstitutionalHeader />
 
-      <main className="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-10 flex-1 w-full">
+      <main className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8 flex-1 w-full">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs items={[{ label: 'Author Guidelines' }]} />
+
         {/* Header Banner */}
         <section className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 shadow-sm space-y-4">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider rounded-md border border-blue-100">

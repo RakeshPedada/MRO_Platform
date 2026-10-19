@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import InstitutionalHeader from '@/components/layout/InstitutionalHeader';
 import InstitutionalFooter from '@/components/layout/InstitutionalFooter';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import ResearcherFollowButton from '@/components/researchers/ResearcherFollowButton';
 import { createClient } from '@/lib/supabase/client';
 import {
@@ -251,7 +252,10 @@ export default function ResearcherDirectoryPage() {
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       <InstitutionalHeader />
 
-      <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-8 flex-1 w-full">
+      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8 flex-1 w-full">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs items={[{ label: 'Researchers Directory' }]} />
+
         {/* Banner Section */}
         <section className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -390,7 +394,7 @@ export default function ResearcherDirectoryPage() {
               return (
                 <div
                   key={researcher.id}
-                  className="bg-white border border-slate-200 hover:border-sky-300 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-5"
+                  className="scholarly-card rounded-2xl p-6 flex flex-col justify-between space-y-5"
                 >
                   <div className="space-y-4">
                     {/* Header: Avatar, Name, Role */}

@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import InstitutionalHeader from '@/components/layout/InstitutionalHeader';
 import InstitutionalFooter from '@/components/layout/InstitutionalFooter';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
+import CopyDoiButton from '@/components/articles/CopyDoiButton';
 import { BookOpen, LockOpen, FileText, ExternalLink, ShieldCheck, Tag } from 'lucide-react';
 
 export const revalidate = 0;
@@ -49,7 +51,10 @@ export default async function PublicArticlesPage() {
       </section>
 
       {/* Main Articles Stream */}
-      <main className="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-6 flex-1 w-full">
+      <main className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 flex-1 w-full">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs items={[{ label: 'Articles', href: '/articles' }, { label: 'Browse Catalog' }]} />
+
         <div className="flex items-center justify-between text-xs text-slate-500 pb-2 border-b border-slate-200">
           <span>
             Archived Publications: <strong className="text-slate-900">{articles?.length || 0} Articles</strong>
@@ -75,7 +80,7 @@ export default async function PublicArticlesPage() {
               return (
                 <article
                   key={item.id}
-                  className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-academic-hover hover:border-sky-300 transition-all duration-200 space-y-3"
+                  className="scholarly-card rounded-2xl p-6 space-y-3"
                 >
                   <div className="flex flex-wrap justify-between items-center text-xs gap-2 border-b border-slate-50 pb-2">
                     <span className="font-bold text-[#0284c7] uppercase tracking-wide text-[11px]">
@@ -111,9 +116,7 @@ export default async function PublicArticlesPage() {
                   </p>
 
                   <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs">
-                    <span className="scholarly-badge-doi">
-                      DOI: <strong className="text-slate-800 select-all font-mono">{item.doi}</strong>
-                    </span>
+                    <CopyDoiButton doi={item.doi} />
 
                     <div className="flex items-center gap-2">
                       {manuscript?.keywords?.slice(0, 3).map((kw: string, i: number) => (

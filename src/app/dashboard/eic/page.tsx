@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import {
   Award,
   BookOpen,
@@ -108,6 +109,8 @@ export default async function EditorInChiefDashboard() {
 
       {/* Main Container */}
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 flex-1 w-full">
+        <Breadcrumbs items={[{ label: 'Editor-in-Chief Console' }]} />
+
         {/* Oversight Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-1">
@@ -205,19 +208,20 @@ export default async function EditorInChiefDashboard() {
 
                         <td className="py-3.5 px-4">
                           <span
-                            className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                              m.status === 'published'
-                                ? 'bg-blue-100 text-blue-800'
-                                : m.status === 'accepted'
-                                ? 'bg-emerald-100 text-emerald-800'
-                                : m.status === 'rejected'
-                                ? 'bg-rose-100 text-rose-800'
+                            className={`status-chip ${
+                              m.status === 'published' || m.status === 'accepted'
+                                ? 'status-chip-published'
+                                : m.status === 'under_review'
+                                ? 'status-chip-review'
                                 : m.status === 'revision_requested'
-                                ? 'bg-amber-100 text-amber-800'
-                                : 'bg-slate-100 text-slate-700'
+                                ? 'status-chip-revision'
+                                : m.status === 'rejected'
+                                ? 'status-chip-rejected'
+                                : 'status-chip-submitted'
                             }`}
                           >
-                            {m.status.replace('_', ' ')}
+                            <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                            <span>{m.status.replace('_', ' ')}</span>
                           </span>
                         </td>
 

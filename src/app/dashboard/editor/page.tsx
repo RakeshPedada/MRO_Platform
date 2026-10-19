@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
 export default async function EditorDashboard() {
   const supabase = await createClient();
@@ -42,9 +43,10 @@ export default async function EditorDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto py-10 px-4">
+      <main className="max-w-7xl mx-auto py-8 px-4">
+        <Breadcrumbs items={[{ label: 'Editorial Console' }]} className="mb-4" />
         <h2 className="text-2xl font-bold text-slate-900 mb-1">Submissions Overview</h2>
-        <p className="text-sm text-slate-600 mb-8">Manage editorial triage, reviewer assignments, and publication decisions.</p>
+        <p className="text-xs text-slate-600 mb-6">Manage editorial triage, reviewer assignments, and publication decisions.</p>
 
         <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
           <table className="w-full text-left border-collapse">
@@ -67,8 +69,21 @@ export default async function EditorDashboard() {
                     <td className="py-4 px-6 text-slate-700">{author?.full_name}</td>
                     <td className="py-4 px-6 text-slate-600">{journal?.title}</td>
                     <td className="py-4 px-6">
-                      <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 uppercase">
-                        {m.status.replace('_', ' ')}
+                      <span
+                        className={`status-chip ${
+                          m.status === 'published' || m.status === 'accepted'
+                            ? 'status-chip-published'
+                            : m.status === 'under_review'
+                            ? 'status-chip-review'
+                            : m.status === 'revision_requested'
+                            ? 'status-chip-revision'
+                            : m.status === 'rejected'
+                            ? 'status-chip-rejected'
+                            : 'status-chip-submitted'
+                        }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                        <span>{m.status.replace('_', ' ')}</span>
                       </span>
                     </td>
                     <td className="py-4 px-6">

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import InstitutionalHeader from '@/components/layout/InstitutionalHeader';
 import InstitutionalFooter from '@/components/layout/InstitutionalFooter';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import {
   Bell,
   Calendar,
@@ -76,7 +77,10 @@ export default function ScholarlyNewsPage() {
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col font-sans">
       <InstitutionalHeader />
 
-      <main className="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-10 flex-1 w-full">
+      <main className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8 flex-1 w-full">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs items={[{ label: 'News & Announcements' }]} />
+
         {/* Banner */}
         <section className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 shadow-sm space-y-4">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider rounded-md border border-sky-100">
@@ -107,8 +111,8 @@ export default function ScholarlyNewsPage() {
             {NEWS_ANNOUNCEMENTS.map((item) => (
               <article
                 key={item.id}
-                className={`bg-white border rounded-2xl p-6 sm:p-8 shadow-sm space-y-4 transition hover:shadow-academic-hover ${
-                  item.pinned ? 'border-sky-300 bg-sky-50/15' : 'border-slate-200'
+                className={`scholarly-card rounded-2xl p-6 sm:p-8 space-y-4 ${
+                  item.pinned ? 'border-sky-300 bg-sky-50/20' : ''
                 }`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2 text-xs">

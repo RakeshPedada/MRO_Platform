@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
 export default async function ReviewerDashboard() {
   const supabase = await createClient();
@@ -44,20 +45,32 @@ export default async function ReviewerDashboard() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto py-10 px-4">
+      <main className="max-w-6xl mx-auto py-8 px-4">
+        <Breadcrumbs items={[{ label: 'Reviewer Workspace' }]} className="mb-4" />
         <h2 className="text-2xl font-bold text-slate-900 mb-1">Assigned Manuscripts for Review</h2>
-        <p className="text-sm text-slate-600 mb-8">Maintain strict confidentiality during evaluation.</p>
+        <p className="text-xs text-slate-600 mb-6">Maintain strict confidentiality during evaluation.</p>
 
         {assignments && assignments.length > 0 ? (
           <div className="space-y-4">
             {assignments.map((item) => {
               const manuscript = Array.isArray(item.manuscripts) ? item.manuscripts[0] : item.manuscripts;
               return (
-                <div key={item.id} className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                <div key={item.id} className="scholarly-card rounded-xl p-6 shadow-sm">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="text-lg font-bold text-slate-900">{manuscript?.title}</h3>
-                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full uppercase bg-blue-100 text-blue-800">
-                      {item.status}
+                    <span
+                      className={`status-chip ${
+                        item.status === 'completed'
+                          ? 'status-chip-published'
+                          : item.status === 'accepted'
+                          ? 'status-chip-review'
+                          : item.status === 'declined'
+                          ? 'status-chip-rejected'
+                          : 'status-chip-submitted'
+                      }`}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                      <span>{item.status}</span>
                     </span>
                   </div>
                   <p className="text-sm text-slate-600 line-clamp-3 mb-4">{manuscript?.abstract}</p>

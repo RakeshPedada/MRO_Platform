@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import InstitutionalHeader from '@/components/layout/InstitutionalHeader';
 import InstitutionalFooter from '@/components/layout/InstitutionalFooter';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
+import CopyDoiButton from '@/components/articles/CopyDoiButton';
 import ResearcherFollowButton from '@/components/researchers/ResearcherFollowButton';
 import {
   Building2,
@@ -282,16 +284,14 @@ export default async function AcademicProfilePage({ params }: ProfilePageProps) 
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       <InstitutionalHeader />
 
-      <main className="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-8 flex-1 w-full">
+      <main className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 flex-1 w-full">
         {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500">
-          <Link href="/researchers" className="hover:text-sky-700 flex items-center gap-1 font-semibold">
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Researcher Directory</span>
-          </Link>
-          <span>/</span>
-          <span className="text-slate-800 font-bold truncate">{profileData.full_name}</span>
-        </div>
+        <Breadcrumbs
+          items={[
+            { label: 'Researchers Directory', href: '/researchers' },
+            { label: profileData.full_name },
+          ]}
+        />
 
         {/* Researcher Hero Profile Card */}
         <section className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm space-y-6">
@@ -460,19 +460,19 @@ export default async function AcademicProfilePage({ params }: ProfilePageProps) 
               {publicationsList.map((article) => (
                 <div
                   key={article.id}
-                  className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:border-sky-300 transition-all space-y-3"
+                  className="scholarly-card rounded-2xl p-6 space-y-3"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-                    <span className="font-bold text-sky-800">
+                    <span className="font-bold text-[#0284c7] uppercase tracking-wide text-[11px]">
                       {article.journal_title}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    <span className="scholarly-badge-oa">
                       <LockOpen className="w-3 h-3" />
                       Open Access &bull; CC BY 4.0
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold text-[#0b1b3d] leading-snug">
+                  <h3 className="scholarly-title text-base sm:text-lg leading-snug">
                     <Link
                       href={`/articles/${article.id}`}
                       className="hover:text-sky-700 transition"
@@ -481,15 +481,15 @@ export default async function AcademicProfilePage({ params }: ProfilePageProps) 
                     </Link>
                   </h3>
 
-                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                  <p className="scholarly-abstract line-clamp-3 leading-relaxed">
                     {article.abstract}
                   </p>
 
                   <div className="flex flex-wrap items-center justify-between gap-3 text-xs pt-2 border-t border-slate-100">
-                    <div className="flex items-center gap-3 text-slate-500 font-mono text-[11px]">
-                      <span>DOI: <strong className="text-slate-800">{article.doi}</strong></span>
-                      <span>&bull;</span>
-                      <span>{new Date(article.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                    <div className="flex items-center gap-3">
+                      <CopyDoiButton doi={article.doi} />
+                      <span className="text-slate-400">&bull;</span>
+                      <span className="text-slate-500 font-mono text-[11px]">{new Date(article.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                     </div>
 
                     <Link

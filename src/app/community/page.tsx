@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import InstitutionalHeader from '@/components/layout/InstitutionalHeader';
 import InstitutionalFooter from '@/components/layout/InstitutionalFooter';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { createClient } from '@/lib/supabase/client';
 import {
   MessageSquare,
@@ -379,7 +380,10 @@ export default function AcademicCommunityPage() {
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       <InstitutionalHeader />
 
-      <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-8 flex-1 w-full">
+      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8 flex-1 w-full">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs items={[{ label: 'Research Community' }]} />
+
         {/* Banner Section */}
         <section className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -469,8 +473,8 @@ export default function AcademicCommunityPage() {
             return (
               <div
                 key={post.id}
-                className={`bg-white border rounded-2xl p-6 shadow-sm transition hover:border-slate-300 space-y-4 ${
-                  post.pinned ? 'border-sky-300 bg-sky-50/20' : 'border-slate-200'
+                className={`scholarly-card rounded-2xl p-6 space-y-4 ${
+                  post.pinned ? 'border-sky-300 bg-sky-50/20' : ''
                 }`}
               >
                 {/* Header: Author Info, Category, Timestamp */}

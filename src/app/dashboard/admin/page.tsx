@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import {
   Users,
   FileText,
@@ -117,6 +118,8 @@ export default async function AdminDashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8 flex-1 w-full">
+        <Breadcrumbs items={[{ label: 'Administration Console' }]} />
+
         {/* Real-time Analytics Summary */}
         <section className="space-y-3">
           <h2 className="text-sm font-bold uppercase tracking-wider text-slate-600 flex items-center gap-2">

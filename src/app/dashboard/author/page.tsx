@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { FileEdit, Send, BookOpen, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -53,7 +54,9 @@ export default async function AuthorDashboard() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto py-10 px-4 sm:px-6">
+      <main className="max-w-6xl mx-auto py-8 px-4 sm:px-6">
+        <Breadcrumbs items={[{ label: 'Author Workspace' }]} className="mb-4" />
+
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
             <h2 className="text-2xl font-bold text-slate-900">Manuscript Submissions</h2>
@@ -103,19 +106,20 @@ export default async function AuthorDashboard() {
                       </td>
                       <td className="py-4 px-6">
                         <span
-                          className={`inline-block px-2.5 py-1 text-[10px] font-bold rounded-full uppercase ${
-                            m.status === 'published'
-                              ? 'bg-blue-100 text-blue-800'
-                              : m.status === 'accepted'
-                              ? 'bg-emerald-100 text-emerald-800'
+                          className={`status-chip ${
+                            m.status === 'published' || m.status === 'accepted'
+                              ? 'status-chip-published'
+                              : m.status === 'under_review'
+                              ? 'status-chip-review'
                               : m.status === 'revision_requested'
-                              ? 'bg-amber-100 text-amber-800 animate-pulse'
+                              ? 'status-chip-revision animate-pulse'
                               : m.status === 'rejected'
-                              ? 'bg-rose-100 text-rose-800'
-                              : 'bg-slate-100 text-slate-700'
+                              ? 'status-chip-rejected'
+                              : 'status-chip-submitted'
                           }`}
                         >
-                          {m.status.replace('_', ' ')}
+                          <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                          <span>{m.status.replace('_', ' ')}</span>
                         </span>
                       </td>
                       <td className="py-4 px-6 text-slate-500 font-mono text-[11px]">

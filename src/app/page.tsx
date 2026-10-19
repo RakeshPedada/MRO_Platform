@@ -18,6 +18,8 @@ import {
   Search,
   LockOpen,
 } from 'lucide-react';
+import CopyDoiButton from '@/components/articles/CopyDoiButton';
+import InstitutionalHeader from '@/components/layout/InstitutionalHeader';
 
 export const revalidate = 0;
 
@@ -123,146 +125,13 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans flex flex-col">
-      {/* 1. MDPI Governance & Parent Company Topbar */}
-      <div className="bg-[#0b1b3d] text-slate-300 text-[11px] border-b border-slate-800 py-1.5 px-4 sm:px-8 flex flex-wrap justify-between items-center gap-2">
-        <div className="flex items-center gap-2">
-          <span>
-            MANI Research Organization (MRO) &bull; An academic publishing initiative of{' '}
-            <strong className="text-white">MANI Market Private Limited</strong>
-          </span>
-          <span className="text-slate-400 hidden lg:inline font-mono">
-            | CIN: U58130AP2026PTC127065 &bull; GSTIN: 37AAVCM2351A1ZI
-          </span>
-        </div>
-        <div className="flex items-center gap-4 text-[11px]">
-          <Link href="/about" className="hover:text-white transition-colors">
-            About MRO
-          </Link>
-          <Link href="/articles" className="hover:text-white transition-colors">
-            Open Access Catalog
-          </Link>
-          <Link href="/guidelines" className="hover:text-white transition-colors">
-            Author Guidelines
-          </Link>
-          <Link href="/ethics" className="hover:text-white transition-colors">
-            Publication Ethics
-          </Link>
-          <Link href="/contact" className="hover:text-white transition-colors">
-            Contact
-          </Link>
-          <span className="text-slate-500 hidden sm:inline">|</span>
-          <span className="text-emerald-400 font-semibold hidden sm:flex items-center gap-1">
-            <ShieldCheck className="w-3 h-3" />
-            COPE Compliant
-          </span>
-        </div>
-      </div>
+      {/* 1. Institutional Header & Corporate Governance Bar */}
+      <InstitutionalHeader />
 
-      {/* 2. Institutional Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2.5">
-              <span className="bg-[#0b1b3d] text-white font-black text-lg px-2.5 py-1 rounded tracking-wider shadow-sm">
-                MRO
-              </span>
-              <div>
-                <span className="font-extrabold text-base sm:text-lg tracking-tight text-[#0b1b3d] block leading-tight">
-                  MANI Research Organization
-                </span>
-                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold block">
-                  Multidisciplinary Open Access Publishing
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          <nav className="hidden md:flex items-center gap-4 text-xs font-semibold text-slate-700">
-            <Link href="/journals" className="hover:text-sky-700 transition-colors">
-              Journals
-            </Link>
-            <Link href="/articles" className="hover:text-sky-700 transition-colors">
-              Articles
-            </Link>
-            <Link href="/categories" className="hover:text-sky-700 transition-colors">
-              Disciplines
-            </Link>
-            <Link href="/researchers" className="hover:text-sky-700 transition-colors">
-              Researchers
-            </Link>
-            <Link href="/community" className="hover:text-sky-700 transition-colors">
-              Community
-            </Link>
-            <Link href="/news" className="hover:text-sky-700 transition-colors">
-              News
-            </Link>
-            <Link href="/guidelines" className="hover:text-sky-700 transition-colors">
-              Guidelines
-            </Link>
-            <Link href="/editorial-board" className="hover:text-sky-700 transition-colors">
-              Editorial Board
-            </Link>
-            <Link href="/about" className="hover:text-sky-700 transition-colors">
-              About MRO
-            </Link>
-            <Link href="/contact" className="hover:text-sky-700 transition-colors">
-              Contact
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-2.5">
-            {user ? (
-              <div className="flex items-center gap-2">
-                <Link
-                  href={
-                    userProfile?.role === 'admin'
-                      ? '/dashboard/admin'
-                      : userProfile?.role === 'editor_in_chief'
-                      ? '/dashboard/eic'
-                      : userProfile?.role === 'editor'
-                      ? '/dashboard/editor'
-                      : userProfile?.role === 'reviewer'
-                      ? '/dashboard/reviewer'
-                      : '/dashboard/author'
-                  }
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold rounded border border-slate-300 transition"
-                >
-                  <GraduationCap className="w-3.5 h-3.5 text-sky-700" />
-                  <span className="capitalize">{userProfile?.role?.replace('_', ' ') || 'Dashboard'}</span>
-                </Link>
-                <Link
-                  href="/submit"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold rounded shadow-sm transition"
-                >
-                  <Send className="w-3 h-3" />
-                  <span>Submit Paper</span>
-                </Link>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  href="/login"
-                  className="px-3 py-1.5 text-xs text-slate-700 hover:text-[#0b1b3d] font-semibold border border-slate-300 rounded hover:bg-slate-50 transition"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/submit"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bold rounded shadow-sm transition"
-                >
-                  <Send className="w-3 h-3" />
-                  <span>Submit Paper</span>
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
-
-      {/* 3. Three-Column MDPI Dense Academic Layout */}
+      {/* 2. Three-Column MDPI Dense Academic Layout */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 w-full">
-        {/* LEFT COLUMN (Col 1-3): Journals Directory & 17 Subject Areas */}
-        <aside className="lg:col-span-3 space-y-4">
+        {/* LEFT COLUMN (Col 1-3 on desktop, order-2 on mobile): Journals Directory & 17 Subject Areas */}
+        <aside className="order-2 lg:order-1 lg:col-span-3 space-y-4">
           {/* Active Journals */}
           <div id="journals" className="bg-white border border-slate-200 rounded p-4 shadow-sm scroll-mt-20">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
@@ -356,8 +225,8 @@ export default async function HomePage() {
           </div>
         </aside>
 
-        {/* CENTER COLUMN (Col 4-9): Published Research Feed Stream */}
-        <main className="lg:col-span-6 space-y-4">
+        {/* CENTER COLUMN (Col 4-9 on desktop, order-1 on mobile): Published Research Feed Stream */}
+        <main className="order-1 lg:order-2 lg:col-span-6 space-y-4">
           <div className="bg-white border border-slate-200 rounded p-4 shadow-sm flex flex-wrap justify-between items-center gap-2">
             <div>
               <h2 className="text-base font-bold text-[#0b1b3d] leading-tight flex items-center gap-2">
@@ -393,7 +262,7 @@ export default async function HomePage() {
                 return (
                   <article
                     key={article.id}
-                    className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3 hover:border-sky-300 hover:shadow-academic-hover transition-all duration-200"
+                    className="scholarly-card rounded-xl p-5 space-y-3 hover:border-sky-300 hover:shadow-academic-hover transition-all duration-200"
                   >
                     <div className="flex flex-wrap items-center justify-between text-[11px] gap-2 border-b border-slate-50 pb-2">
                       <span className="font-bold text-[#0284c7] uppercase tracking-wide">
@@ -428,13 +297,8 @@ export default async function HomePage() {
                       {manuscript?.abstract}
                     </p>
 
-                    <div className="pt-2 border-t border-slate-100 flex flex-wrap justify-between items-center gap-2 text-[11px]">
-                      <span className="scholarly-badge-doi">
-                        DOI:{' '}
-                        <strong className="text-slate-800 select-all font-mono">
-                          {article.doi}
-                        </strong>
-                      </span>
+                    <div className="pt-2.5 border-t border-slate-100 flex flex-wrap justify-between items-center gap-2 text-[11px]">
+                      <CopyDoiButton doi={article.doi} />
 
                       <div className="flex items-center gap-2">
                         <Link
@@ -467,8 +331,8 @@ export default async function HomePage() {
           )}
         </main>
 
-        {/* RIGHT COLUMN (Col 10-12): Submissions, Role Portals & Verified Metrics */}
-        <aside id="portals" className="lg:col-span-3 space-y-4 scroll-mt-20">
+        {/* RIGHT COLUMN (Col 10-12 on desktop, order-3 on mobile): Submissions, Role Portals & Verified Metrics */}
+        <aside id="portals" className="order-3 lg:order-3 lg:col-span-3 space-y-4 scroll-mt-20">
           {/* Action Box: Submit Manuscript */}
           <div className="bg-[#0b1b3d] text-white rounded p-4 shadow-sm space-y-2.5">
             <h3 className="text-xs font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1.5">

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ArticlePdfViewer from '@/components/articles/ArticlePdfViewer';
 import CitationFormats from '@/components/articles/CitationFormats';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
+import CopyDoiButton from '@/components/articles/CopyDoiButton';
 import { BookOpen, Calendar, Download, Eye, FileText, Globe, Layers, Share2, Tag, User } from 'lucide-react';
 
 export const revalidate = 0;
@@ -87,7 +89,16 @@ export default async function ArticleDetailPage({
       </header>
 
       {/* Main Container */}
-      <main className="max-w-5xl mx-auto py-8 sm:py-12 px-4 sm:px-6 space-y-8">
+      <main className="max-w-5xl mx-auto py-8 px-4 sm:px-6 space-y-6">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs
+          items={[
+            { label: 'Articles', href: '/articles' },
+            { label: journal?.title || 'Journal', href: '/articles' },
+            { label: manuscript?.title || 'Article' },
+          ]}
+        />
+
         {/* Article Metadata Card */}
         <article className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm space-y-6">
           {/* Journal Banner */}
@@ -143,19 +154,22 @@ export default async function ArticleDetailPage({
 
           {/* Action & DOI Bar */}
           <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200">
-            <div className="space-y-0.5">
-              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
-                Digital Object Identifier (DOI)
-              </span>
-              <a
-                href={`https://doi.org/${article.doi}`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs sm:text-sm font-bold text-blue-700 hover:text-blue-800 font-mono hover:underline flex items-center gap-1.5"
-              >
-                https://doi.org/{article.doi}
-                <Globe className="w-3.5 h-3.5" />
-              </a>
+            <div className="flex items-center gap-3">
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
+                  Digital Object Identifier
+                </span>
+                <a
+                  href={`https://doi.org/${article.doi}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs sm:text-sm font-bold text-blue-700 hover:text-blue-800 font-mono hover:underline flex items-center gap-1.5"
+                >
+                  https://doi.org/{article.doi}
+                  <Globe className="w-3.5 h-3.5" />
+                </a>
+              </div>
+              <CopyDoiButton doi={article.doi} />
             </div>
 
             <div className="flex flex-wrap items-center gap-2.5">
