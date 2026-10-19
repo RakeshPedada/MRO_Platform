@@ -16,6 +16,7 @@ import {
   Eye,
   FileCheck2,
   Search,
+  LockOpen,
 } from 'lucide-react';
 
 export const revalidate = 0;
@@ -176,12 +177,15 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center gap-5 text-xs font-semibold text-slate-700">
-            <a href="#journals" className="hover:text-sky-700 transition-colors">
+          <nav className="hidden md:flex items-center gap-4 text-xs font-semibold text-slate-700">
+            <Link href="/journals" className="hover:text-sky-700 transition-colors">
               Journals
-            </a>
+            </Link>
             <Link href="/articles" className="hover:text-sky-700 transition-colors">
-              Browse Articles
+              Articles
+            </Link>
+            <Link href="/categories" className="hover:text-sky-700 transition-colors">
+              Disciplines
             </Link>
             <Link href="/researchers" className="hover:text-sky-700 transition-colors">
               Researchers
@@ -189,8 +193,11 @@ export default async function HomePage() {
             <Link href="/community" className="hover:text-sky-700 transition-colors">
               Community
             </Link>
+            <Link href="/news" className="hover:text-sky-700 transition-colors">
+              News
+            </Link>
             <Link href="/guidelines" className="hover:text-sky-700 transition-colors">
-              Author Guidelines
+              Guidelines
             </Link>
             <Link href="/editorial-board" className="hover:text-sky-700 transition-colors">
               Editorial Board
@@ -288,6 +295,15 @@ export default async function HomePage() {
             ) : (
               <p className="text-xs text-slate-400">Loading journals...</p>
             )}
+            <div className="pt-2.5 mt-2 border-t border-slate-100">
+              <Link
+                href="/journals"
+                className="text-[11px] text-sky-700 hover:text-sky-900 font-bold flex items-center justify-between"
+              >
+                <span>Browse Full Journals Catalog</span>
+                <span>&rarr;</span>
+              </Link>
+            </div>
           </div>
 
           {/* 17 Multidisciplinary Subject Areas */}
@@ -301,7 +317,7 @@ export default async function HomePage() {
                 17
               </span>
             </div>
-            <div className="max-h-[460px] overflow-y-auto pr-1">
+            <div className="max-h-[460px] overflow-y-auto pr-1 academic-scrollbar">
               <ul className="text-[11px] space-y-2">
                 {allSubjectAreas.map((c, idx) => (
                   <li key={c.slug} className="border-b border-slate-50 pb-1.5 last:border-0">
@@ -316,6 +332,15 @@ export default async function HomePage() {
                   </li>
                 ))}
               </ul>
+            </div>
+            <div className="pt-2.5 mt-2 border-t border-slate-100">
+              <Link
+                href="/categories"
+                className="text-[11px] text-sky-700 hover:text-sky-900 font-bold flex items-center justify-between"
+              >
+                <span>View All 17 Disciplines</span>
+                <span>&rarr;</span>
+              </Link>
             </div>
           </div>
 
@@ -368,23 +393,24 @@ export default async function HomePage() {
                 return (
                   <article
                     key={article.id}
-                    className="bg-white border border-slate-200 rounded p-5 shadow-sm space-y-3 hover:border-slate-300 transition-colors"
+                    className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3 hover:border-sky-300 hover:shadow-academic-hover transition-all duration-200"
                   >
                     <div className="flex flex-wrap items-center justify-between text-[11px] gap-2 border-b border-slate-50 pb-2">
-                      <span className="font-bold text-sky-800 uppercase tracking-wide">
+                      <span className="font-bold text-[#0284c7] uppercase tracking-wide">
                         {journal?.title || 'MRO Journal of Advanced Engineering & Technology'}
                       </span>
                       <div className="flex items-center gap-2">
-                        <span className="bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded text-[10px] border border-emerald-200">
+                        <span className="scholarly-badge-oa">
+                          <LockOpen className="w-3 h-3" />
                           Open Access
                         </span>
-                        <span className="text-slate-400">
+                        <span className="text-slate-400 text-[10px] font-mono">
                           Vol. {article.volume}, Issue {article.issue} ({pubDate})
                         </span>
                       </div>
                     </div>
 
-                    <h3 className="text-base font-bold text-slate-900 leading-snug hover:text-sky-700 transition-colors">
+                    <h3 className="scholarly-title text-base sm:text-lg leading-snug">
                       <Link href={`/articles/${article.id}`}>{manuscript?.title}</Link>
                     </h3>
 
@@ -398,12 +424,12 @@ export default async function HomePage() {
                       )}
                     </div>
 
-                    <p className="text-xs text-slate-700 line-clamp-3 leading-relaxed">
+                    <p className="scholarly-abstract line-clamp-3">
                       {manuscript?.abstract}
                     </p>
 
                     <div className="pt-2 border-t border-slate-100 flex flex-wrap justify-between items-center gap-2 text-[11px]">
-                      <span className="font-mono text-[10px] text-slate-500">
+                      <span className="scholarly-badge-doi">
                         DOI:{' '}
                         <strong className="text-slate-800 select-all font-mono">
                           {article.doi}

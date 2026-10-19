@@ -51,12 +51,15 @@ export default function InstitutionalHeader() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/articles', label: 'Browse Articles' },
+    { href: '/journals', label: 'Journals' },
+    { href: '/articles', label: 'Articles' },
+    { href: '/categories', label: 'Disciplines' },
     { href: '/researchers', label: 'Researchers' },
     { href: '/community', label: 'Community' },
-    { href: '/guidelines', label: 'Author Guidelines' },
-    { href: '/ethics', label: 'Publication Ethics' },
-    { href: '/editorial-board', label: 'Editorial Board' },
+    { href: '/news', label: 'News' },
+    { href: '/guidelines', label: 'Guidelines' },
+    { href: '/ethics', label: 'Ethics' },
+    { href: '/editorial-board', label: 'Board' },
     { href: '/about', label: 'About MRO' },
     { href: '/contact', label: 'Contact' },
   ];

@@ -71,8 +71,18 @@ export default function InstitutionalFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/journals" className="hover:text-white">
+                &bull; Peer-Reviewed Journals
+              </Link>
+            </li>
+            <li>
               <Link href="/articles" className="hover:text-white">
                 &bull; Open Access Articles Catalog
+              </Link>
+            </li>
+            <li>
+              <Link href="/categories" className="hover:text-white">
+                &bull; 17 Multidisciplinary Disciplines
               </Link>
             </li>
             <li>
@@ -83,6 +93,11 @@ export default function InstitutionalFooter() {
             <li>
               <Link href="/community" className="hover:text-white">
                 &bull; Community Research Forum
+              </Link>
+            </li>
+            <li>
+              <Link href="/news" className="hover:text-white">
+                &bull; Academic News &amp; Call for Papers
               </Link>
             </li>
             <li>
@@ -113,8 +128,14 @@ export default function InstitutionalFooter() {
         <p>
           &copy; {new Date().getFullYear()} MANI Research Organization (MRO). An initiative of MANI Market Private Limited. All rights reserved.
         </p>
-        <div className="flex flex-wrap gap-4 text-[10px]">
-          <span>Peer-Reviewed Literature</span>
+        <div className="flex flex-wrap items-center gap-3 text-[10px]">
+          <Link href="/privacy" className="hover:text-slate-300 underline underline-offset-2">
+            Privacy Policy
+          </Link>
+          <span>&bull;</span>
+          <Link href="/terms" className="hover:text-slate-300 underline underline-offset-2">
+            Terms of Service
+          </Link>
           <span>&bull;</span>
           <span>CC BY 4.0 Open Access</span>
           <span>&bull;</span>

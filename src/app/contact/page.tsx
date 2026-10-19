@@ -149,13 +149,14 @@ export default function ContactPage() {
                       setSubject('');
                       setMessage('');
                     }}
+                    suppressHydrationWarning
                     className="mt-2 px-4 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-lg transition"
                   >
                     Send Another Inquiry
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+                <form onSubmit={handleSubmit} suppressHydrationWarning className="space-y-4 text-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
@@ -167,6 +168,7 @@ export default function ContactPage() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Dr. Rajesh Pedada"
+                        suppressHydrationWarning
                         className="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-sky-600 bg-slate-50 focus:bg-white transition"
                       />
                     </div>
@@ -181,6 +183,7 @@ export default function ContactPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="researcher@university.edu"
+                        suppressHydrationWarning
                         className="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-sky-600 bg-slate-50 focus:bg-white transition"
                       />
                     </div>
@@ -193,6 +196,7 @@ export default function ContactPage() {
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
+                      suppressHydrationWarning
                       className="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-sky-600 bg-white"
                     >
                       <option value="author_inquiry">Author &amp; Manuscript Tracking Query</option>
@@ -213,6 +217,7 @@ export default function ContactPage() {
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       placeholder="e.g. Query regarding Manuscript ID #d4e36f74 revision status"
+                      suppressHydrationWarning
                       className="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-sky-600 bg-slate-50 focus:bg-white transition"
                     />
                   </div>
@@ -227,6 +232,7 @@ export default function ContactPage() {
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Please provide your institutional affiliation, relevant manuscript ID if applicable, and detailed questions..."
+                      suppressHydrationWarning
                       className="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-sky-600 bg-slate-50 focus:bg-white transition leading-relaxed"
                     />
                   </div>
@@ -234,6 +240,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={loading}
+                    suppressHydrationWarning
                     className="w-full py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold text-xs rounded-xl shadow-md transition disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     {loading ? (
