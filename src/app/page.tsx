@@ -183,6 +183,12 @@ export default async function HomePage() {
             <Link href="/articles" className="hover:text-sky-700 transition-colors">
               Browse Articles
             </Link>
+            <Link href="/researchers" className="hover:text-sky-700 transition-colors">
+              Researchers
+            </Link>
+            <Link href="/community" className="hover:text-sky-700 transition-colors">
+              Community
+            </Link>
             <Link href="/guidelines" className="hover:text-sky-700 transition-colors">
               Author Guidelines
             </Link>
@@ -618,6 +624,16 @@ export default async function HomePage() {
               <li>
                 <Link href="/articles" className="hover:text-white">
                   &bull; Published Articles Catalog
+                </Link>
+              </li>
+              <li>
+                <Link href="/researchers" className="hover:text-white">
+                  &bull; Researcher Directory &amp; Profiles
+                </Link>
+              </li>
+              <li>
+                <Link href="/community" className="hover:text-white">
+                  &bull; Community Research Forum
                 </Link>
               </li>
               <li>

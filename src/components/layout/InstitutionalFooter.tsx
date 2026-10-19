@@ -76,6 +76,16 @@ export default function InstitutionalFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/researchers" className="hover:text-white">
+                &bull; Researcher Directory &amp; Profiles
+              </Link>
+            </li>
+            <li>
+              <Link href="/community" className="hover:text-white">
+                &bull; Community Research Forum
+              </Link>
+            </li>
+            <li>
               <Link href="/guidelines" className="hover:text-white">
                 &bull; Author Guidelines &amp; Formatting
               </Link>

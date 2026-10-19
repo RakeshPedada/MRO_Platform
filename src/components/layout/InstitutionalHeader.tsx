@@ -52,6 +52,8 @@ export default function InstitutionalHeader() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/articles', label: 'Browse Articles' },
+    { href: '/researchers', label: 'Researchers' },
+    { href: '/community', label: 'Community' },
     { href: '/guidelines', label: 'Author Guidelines' },
     { href: '/ethics', label: 'Publication Ethics' },
     { href: '/editorial-board', label: 'Editorial Board' },
