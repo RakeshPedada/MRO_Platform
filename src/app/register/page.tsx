@@ -53,45 +53,69 @@ export default function RegisterPage() {
 
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700">Full Name</label>
+            <label htmlFor="register-fullName" className="block text-sm font-medium text-slate-700">
+              Full Name
+            </label>
             <input
+              id="register-fullName"
+              name="fullName"
               type="text"
+              autoComplete="name"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
+              suppressHydrationWarning
               className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
               placeholder="Dr. Jane Doe"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700">Institutional Affiliation</label>
+            <label htmlFor="register-affiliation" className="block text-sm font-medium text-slate-700">
+              Institutional Affiliation
+            </label>
             <input
+              id="register-affiliation"
+              name="affiliation"
               type="text"
+              autoComplete="organization"
               required
               value={affiliation}
               onChange={(e) => setAffiliation(e.target.value)}
+              suppressHydrationWarning
               className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
               placeholder="University / Organization Name"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700">Email Address</label>
+            <label htmlFor="register-email" className="block text-sm font-medium text-slate-700">
+              Email Address
+            </label>
             <input
+              id="register-email"
+              name="email"
               type="email"
+              autoComplete="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              suppressHydrationWarning
               className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
               placeholder="researcher@institution.edu"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700">Password</label>
+            <label htmlFor="register-password" className="block text-sm font-medium text-slate-700">
+              Password
+            </label>
             <input
+              id="register-password"
+              name="password"
               type="password"
+              autoComplete="new-password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              suppressHydrationWarning
               className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 outline-none"
               placeholder="••••••••"
             />
@@ -99,6 +123,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
+            suppressHydrationWarning
             className="w-full py-2.5 px-4 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition disabled:opacity-50"
           >
             {loading ? 'Creating Account...' : 'Register'}

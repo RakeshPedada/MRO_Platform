@@ -163,11 +163,14 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} suppressHydrationWarning className="space-y-4 text-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
+                      <label htmlFor="contact-name" className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
                         Full Name <span className="text-rose-500">*</span>
                       </label>
                       <input
+                        id="contact-name"
+                        name="name"
                         type="text"
+                        autoComplete="name"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -178,11 +181,14 @@ export default function ContactPage() {
                     </div>
 
                     <div>
-                      <label className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
+                      <label htmlFor="contact-email" className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
                         Email Address <span className="text-rose-500">*</span>
                       </label>
                       <input
+                        id="contact-email"
+                        name="email"
                         type="email"
+                        autoComplete="email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -194,10 +200,12 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
+                    <label htmlFor="contact-category" className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
                       Inquiry Nature / Department <span className="text-rose-500">*</span>
                     </label>
                     <select
+                      id="contact-category"
+                      name="category"
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
                       suppressHydrationWarning
@@ -212,11 +220,14 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
+                    <label htmlFor="contact-subject" className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
                       Subject <span className="text-rose-500">*</span>
                     </label>
                     <input
+                      id="contact-subject"
+                      name="subject"
                       type="text"
+                      autoComplete="off"
                       required
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
@@ -227,10 +238,13 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
+                    <label htmlFor="contact-message" className="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">
                       Detailed Message <span className="text-rose-500">*</span>
                     </label>
                     <textarea
+                      id="contact-message"
+                      name="message"
+                      autoComplete="off"
                       required
                       rows={5}
                       value={message}

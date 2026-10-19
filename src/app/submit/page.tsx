@@ -248,10 +248,13 @@ export default function SubmitManuscriptPage() {
           <form onSubmit={handleSubmit} suppressHydrationWarning className="space-y-5 text-xs">
             {/* Target Journal Selection */}
             <div>
-              <label className="block font-bold text-slate-800 mb-1">
+              <label htmlFor="submit-journal" className="block font-bold text-slate-800 mb-1">
                 Target Journal <span className="text-rose-500">*</span>
               </label>
               <select
+                id="submit-journal"
+                name="journalId"
+                autoComplete="off"
                 value={journalId}
                 onChange={(e) => setJournalId(e.target.value)}
                 required
@@ -273,7 +276,7 @@ export default function SubmitManuscriptPage() {
             {/* Complete 17 Multidisciplinary Categories Dropdown */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="block font-bold text-slate-800">
+                <label htmlFor="submit-category" className="block font-bold text-slate-800">
                   Research Category (17 Disciplines) <span className="text-rose-500">*</span>
                 </label>
                 <span className="text-[10px] text-slate-400 font-mono">
@@ -281,6 +284,9 @@ export default function SubmitManuscriptPage() {
                 </span>
               </div>
               <select
+                id="submit-category"
+                name="categoryId"
+                autoComplete="off"
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
                 required
@@ -300,11 +306,14 @@ export default function SubmitManuscriptPage() {
 
             {/* Manuscript Title */}
             <div>
-              <label className="block font-bold text-slate-800 mb-1">
+              <label htmlFor="submit-title" className="block font-bold text-slate-800 mb-1">
                 Manuscript Title <span className="text-rose-500">*</span>
               </label>
               <input
+                id="submit-title"
+                name="title"
                 type="text"
+                autoComplete="off"
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -316,10 +325,13 @@ export default function SubmitManuscriptPage() {
 
             {/* Abstract */}
             <div>
-              <label className="block font-bold text-slate-800 mb-1">
+              <label htmlFor="submit-abstract" className="block font-bold text-slate-800 mb-1">
                 Abstract (200–300 words recommended) <span className="text-rose-500">*</span>
               </label>
               <textarea
+                id="submit-abstract"
+                name="abstract"
+                autoComplete="off"
                 required
                 rows={6}
                 value={abstract}
@@ -332,11 +344,14 @@ export default function SubmitManuscriptPage() {
 
             {/* Keywords */}
             <div>
-              <label className="block font-bold text-slate-800 mb-1">
+              <label htmlFor="submit-keywords" className="block font-bold text-slate-800 mb-1">
                 Keywords (Comma-separated, 4–6 terms) <span className="text-rose-500">*</span>
               </label>
               <input
+                id="submit-keywords"
+                name="keywords"
                 type="text"
+                autoComplete="off"
                 required
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
@@ -348,10 +363,12 @@ export default function SubmitManuscriptPage() {
 
             {/* Manuscript PDF Upload */}
             <div>
-              <label className="block font-bold text-slate-800 mb-1">
+              <label htmlFor="submit-file" className="block font-bold text-slate-800 mb-1">
                 Manuscript PDF File <span className="text-rose-500">*</span>
               </label>
               <input
+                id="submit-file"
+                name="file"
                 type="file"
                 required
                 accept=".pdf"
@@ -366,10 +383,13 @@ export default function SubmitManuscriptPage() {
 
             {/* Conflict of Interest Disclosure */}
             <div>
-              <label className="block font-bold text-slate-800 mb-1">
+              <label htmlFor="submit-conflict" className="block font-bold text-slate-800 mb-1">
                 Conflict of Interest Disclosure <span className="text-rose-500">*</span>
               </label>
               <textarea
+                id="submit-conflict"
+                name="conflictOfInterest"
+                autoComplete="off"
                 required
                 rows={2}
                 value={conflictOfInterest}
@@ -385,10 +405,13 @@ export default function SubmitManuscriptPage() {
 
             {/* Ethics & Institutional Compliance Statement */}
             <div>
-              <label className="block font-bold text-slate-800 mb-1">
+              <label htmlFor="submit-ethics" className="block font-bold text-slate-800 mb-1">
                 Research Ethics &amp; Compliance Statement <span className="text-rose-500">*</span>
               </label>
               <textarea
+                id="submit-ethics"
+                name="ethicsStatement"
+                autoComplete="off"
                 required
                 rows={2}
                 value={ethicsStatement}
