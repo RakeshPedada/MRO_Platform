@@ -59,12 +59,8 @@ export default function SubmitManuscriptPage() {
   const [keywords, setKeywords] = useState('');
   const [journalId, setJournalId] = useState('');
   const [categoryId, setCategoryId] = useState(FALLBACK_17_CATEGORIES[0].id);
-  const [conflictOfInterest, setConflictOfInterest] = useState(
-    'The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.'
-  );
-  const [ethicsStatement, setEthicsStatement] = useState(
-    'The authors certify that this investigation conforms with relevant institutional and national ethical guidelines.'
-  );
+  const [conflictOfInterest, setConflictOfInterest] = useState('');
+  const [ethicsStatement, setEthicsStatement] = useState('');
   const [file, setFile] = useState<File | null>(null);
 
   const [loading, setLoading] = useState(false);
@@ -184,9 +180,12 @@ export default function SubmitManuscriptPage() {
         abstract: abstract.trim(),
         keywords: keywordsArray,
         file_url: filePath,
-        status: 'submitted',
-        ethics_statement: ethicsStatement.trim() || 'Standard institutional ethics followed.',
-        conflict_of_interest_statement: conflictOfInterest.trim() || 'None declared.',
+        ethics_statement:
+          ethicsStatement.trim() ||
+          'The authors certify that this investigation conforms with relevant institutional and national ethical guidelines.',
+        conflict_of_interest_statement:
+          conflictOfInterest.trim() ||
+          'The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.',
       });
 
       if (insertError) throw insertError;
@@ -384,44 +383,42 @@ export default function SubmitManuscriptPage() {
             {/* Conflict of Interest Disclosure */}
             <div>
               <label htmlFor="submit-conflict" className="block font-bold text-slate-800 mb-1">
-                Conflict of Interest Disclosure <span className="text-rose-500">*</span>
+                Conflict of Interest Disclosure
               </label>
               <textarea
                 id="submit-conflict"
                 name="conflictOfInterest"
                 autoComplete="off"
-                required
                 rows={2}
                 value={conflictOfInterest}
                 onChange={(e) => setConflictOfInterest(e.target.value)}
-                placeholder="Declare any financial, commercial, or personal affiliations that could influence the study, or state 'The authors declare no competing interests.'"
+                placeholder="The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper."
                 suppressHydrationWarning
                 className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-900"
               />
               <p className="text-[11px] text-slate-500 mt-1">
-                Transparent disclosure of commercial, institutional, or grant-funding affiliations.
+                Transparent disclosure of commercial, institutional, or grant-funding affiliations (leave blank to accept standard declaration).
               </p>
             </div>
 
             {/* Ethics & Institutional Compliance Statement */}
             <div>
               <label htmlFor="submit-ethics" className="block font-bold text-slate-800 mb-1">
-                Research Ethics &amp; Compliance Statement <span className="text-rose-500">*</span>
+                Research Ethics &amp; Compliance Statement
               </label>
               <textarea
                 id="submit-ethics"
                 name="ethicsStatement"
                 autoComplete="off"
-                required
                 rows={2}
                 value={ethicsStatement}
                 onChange={(e) => setEthicsStatement(e.target.value)}
-                placeholder="Certify institutional ethics committee approvals, consent protocols, or compliance with Declaration of Helsinki."
+                placeholder="The authors certify that this investigation conforms with relevant institutional and national ethical guidelines."
                 suppressHydrationWarning
                 className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-900"
               />
               <p className="text-[11px] text-slate-500 mt-1">
-                Mandatory statement on adherence to human/animal research ethics and COPE standards.
+                Mandatory statement on adherence to human/animal research ethics and COPE standards (leave blank to accept standard declaration).
               </p>
             </div>
 

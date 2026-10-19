@@ -191,6 +191,8 @@ export default function InstitutionalHeader() {
             >
               {/* Scope Dropdown */}
               <select
+                id="header-search-scope"
+                name="scope"
                 value={searchScope}
                 onChange={(e) => setSearchScope(e.target.value as any)}
                 aria-label="Search Scope"
@@ -202,7 +204,10 @@ export default function InstitutionalHeader() {
 
               {/* Search Input */}
               <input
+                id="header-search-input"
+                name="searchQuery"
                 type="text"
+                autoComplete="off"
                 placeholder="Search articles, authors, journals..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -286,6 +291,8 @@ export default function InstitutionalHeader() {
             {/* Mobile Integrated Search */}
             <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-300 rounded overflow-hidden">
               <select
+                id="mobile-header-search-scope"
+                name="scope"
                 value={searchScope}
                 onChange={(e) => setSearchScope(e.target.value as any)}
                 className="bg-slate-100 text-slate-800 text-[11px] font-semibold py-2 px-2 border-r border-slate-300 focus:outline-none"
@@ -294,7 +301,10 @@ export default function InstitutionalHeader() {
                 <option value="articles">Articles</option>
               </select>
               <input
+                id="mobile-header-search-input"
+                name="searchQuery"
                 type="text"
+                autoComplete="off"
                 placeholder="Search catalog..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -415,11 +425,14 @@ export default function InstitutionalHeader() {
 
             <form onSubmit={handleAdvancedSearchSubmit} className="space-y-3.5 text-xs">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label htmlFor="adv-search-title" className="block font-semibold text-slate-700 mb-1">
                   Article Title / Keywords:
                 </label>
                 <input
+                  id="adv-search-title"
+                  name="advTitle"
                   type="text"
+                  autoComplete="off"
                   placeholder="e.g. Autonomous Robotic Navigation, Renewable Microgrids..."
                   value={advTitle}
                   onChange={(e) => setAdvTitle(e.target.value)}
@@ -428,11 +441,14 @@ export default function InstitutionalHeader() {
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label htmlFor="adv-search-author" className="block font-semibold text-slate-700 mb-1">
                   Author / Academic Affiliation:
                 </label>
                 <input
+                  id="adv-search-author"
+                  name="advAuthor"
                   type="text"
+                  autoComplete="off"
                   placeholder="e.g. Manikanta, Indian Institute of Science..."
                   value={advAuthor}
                   onChange={(e) => setAdvAuthor(e.target.value)}
@@ -442,11 +458,14 @@ export default function InstitutionalHeader() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">
+                  <label htmlFor="adv-search-doi" className="block font-semibold text-slate-700 mb-1">
                     Digital Object Identifier (DOI):
                   </label>
                   <input
+                    id="adv-search-doi"
+                    name="advDoi"
                     type="text"
+                    autoComplete="off"
                     placeholder="10.5555/mro.2026..."
                     value={advDoi}
                     onChange={(e) => setAdvDoi(e.target.value)}
@@ -454,11 +473,14 @@ export default function InstitutionalHeader() {
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">
+                  <label htmlFor="adv-search-year" className="block font-semibold text-slate-700 mb-1">
                     Year of Publication:
                   </label>
                   <input
+                    id="adv-search-year"
+                    name="advYear"
                     type="number"
+                    autoComplete="off"
                     placeholder="2026"
                     value={advYear}
                     onChange={(e) => setAdvYear(e.target.value)}
